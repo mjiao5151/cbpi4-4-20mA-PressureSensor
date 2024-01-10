@@ -88,8 +88,9 @@ class ads1256_Config(CBPiExtension):
             try:
                 measurement = self.ads.read_sequence(CH_SEQUENCE) 
                 volts = [i * self.ads.v_per_digit for i in measurement]
+                # read data and covert to voltage data
                 if volts is not None:
-                    ch0,ch1,ch2,ch3,ch4,ch5,ch6,ch7= volts
+                    ch0,ch1,ch2,ch3,ch4,ch5,ch6,ch7 = volts
                     timestamp = time.time()
                     cache = {'Time': timestamp,
                             'ch0': ch0,
