@@ -114,11 +114,11 @@ class ads1256_Config(CBPiExtension):
     Property.Select("sensorType", options=["Voltage","Pressure","Liquid Level","Volume"], description="Select which type of data to register for this sensor"),
     Property.Select("pressureType", options=["kPa","PSI"]),
     Property.Number("voltLow", configurable=True, default_value=0, description="Pressure Sensor minimum voltage, usually 0"),
-    Property.Number("voltHigh", configurable=True, default_value=5, description="Pressure Sensor maximum voltage, usually 5"),
+    Property.Number("voltHigh", configurable=True, default_value=5, description="Pressure Sensor maximum voltage, usually 3"),
     Property.Number("pressureLow", configurable=True, default_value=0, description="Pressure value at minimum voltage, value in kPa"),
     Property.Number("pressureHigh", configurable=True, default_value=10, description="Pressure value at maximum voltage, value in kPa"),
-    Property.Number("sensorHeight", configurable=True, default_value=0, description="Location of Sensor from the bottom of the kettle in inches"),
-    Property.Number("kettleDiameter", configurable=True, default_value=0, description="Diameter of kettle in inches"),
+    Property.Number("sensorHeight", configurable=True, default_value=0, description="Location of Sensor from the bottom of the kettle in meter"),
+    Property.Number("kettleDiameter", configurable=True, default_value=0, description="Diameter of kettle in meter"),
     Property.Select(label="Interval", options=[1,5,10,30,60], description="Interval in Seconds")
 ])
 class Analog_Sensor(CBPiSensor):
@@ -148,7 +148,7 @@ class Analog_Sensor(CBPiSensor):
         self.pressureLow = self.convert_pressure(int(self.props.get("pressureLow", 0)))
     
         
-        self.calcX = int(self.props.get("voltHigh", 5)) - int(self.props.get("voltLow", 0))
+        self.calcX = int(self.props.get("voltHigh", 3)) - int(self.props.get("voltLow", 0))
         #logging.info('calcX value: %s' % (calcX))
         self.calcM = (self.pressureHigh - self.pressureLow) / self.calcX
         #logging.info('calcM value: %s' % (calcM))
@@ -205,15 +205,21 @@ class Analog_Sensor(CBPiSensor):
                   
                     pressureValue = (self.calcM * self.value) + self.calcB    # "%.6f" % ((calcM * voltage) + calcB)
             
-                    liquidLevel = ((self.convert_bar(pressureValue) / self.GRAVITY) * 100000) / self.inch_mm
-                    if liquidLevel > 0.49:
-                        liquidLevel += self.sensorHeight
+                    # liquidLevel = ((self.convert_bar(pressureValue) / self.GRAVITY) * 100000) / self.inch_mm
+                    # if liquidLevel > 0.49:
+                    #     liquidLevel += self.sensorHeight
+                    # not understand the meaning of 0.49
+
+                    liquidLevel = pressureValue / self.GRAVITY 
+                    # in unit of meter
+                   
                     
                     # Volume is calculated by V = PI (r squared) * height
-                    kettleRadius = self.kettleDiameter / 2
-                    radiusSquared = kettleRadius * kettleRadius
-                    volumeCI = self.PI * radiusSquared * liquidLevel
-                    volume = volumeCI / self.gallons_cubicinch
+                    # kettleRadius = self.kettleDiameter / 2
+                    # radiusSquared = kettleRadius * kettleRadius
+                    volumeCI = self.PI * (self.kettleDiameter / 2)^2 * liquidLevel
+                    # in unit of m^3
+                    volume = volumeCI * 1000 # in unit of liter
 
                     if self.props.get("sensorType", "Liquid Level") == "Voltage":
                         self.value = self.value
