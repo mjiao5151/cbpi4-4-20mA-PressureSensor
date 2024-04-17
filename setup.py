@@ -11,7 +11,7 @@ setup(name='cbpi4-4-20ma-analog-sensor',
         # If any package contains *.txt or *.rst files, include them:
       '': ['*.txt', '*.rst', '*.yaml'],
       'cbpi4_analog_sensor': ['*','*.txt', '*.rst', '*.yaml']},
-      packages=['cbpi4-analog-sensor'],
+      packages=['cbpi4-4-20ma-analog-sensor'],
 	    install_requires=[
         'PiPyADC']
 
