@@ -1,6 +1,6 @@
 from setuptools import setup
 
-setup(name='cbpi4_analog_sensor',
+setup(name='cbpi4-analog-sensor',
       version='0.0.1',
       description='CraftBeerPi4 Plugin for ADS1256 based analog sensor',
       author='littlem',
@@ -11,7 +11,7 @@ setup(name='cbpi4_analog_sensor',
         # If any package contains *.txt or *.rst files, include them:
       '': ['*.txt', '*.rst', '*.yaml'],
       'cbpi4_analog_sensor': ['*','*.txt', '*.rst', '*.yaml']},
-      packages=['cbpi4_analog_sensor'],
+      packages=['cbpi4-analog-sensor'],
 	    install_requires=[
         'PiPyADC']
 
