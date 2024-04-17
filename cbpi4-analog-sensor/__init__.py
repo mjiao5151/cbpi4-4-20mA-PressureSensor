@@ -134,7 +134,7 @@ class Analog_Sensor(CBPiSensor):
         global cache
         # Variables to be used with calculations
         self.GRAVITY = 9.807
-        self.PI = 3.1415
+        self.PI = 3.1416
         # Conversion values
         self.kpa_psi = 0.145
         self.bar_psi = 14.5038
@@ -217,9 +217,9 @@ class Analog_Sensor(CBPiSensor):
                     # Volume is calculated by V = PI (r squared) * height
                     # kettleRadius = self.kettleDiameter / 2
                     # radiusSquared = kettleRadius * kettleRadius
-                    volumeCI = self.PI * (self.kettleDiameter / 2)^2 * liquidLevel
-                    # in unit of m^3
-                    volume = volumeCI * 1000 # in unit of liter
+                    volume = self.PI * (self.kettleDiameter / 2)**2 * liquidLevel * 1000
+                    # in unit of liter
+                    # volume = volumeCI * 1000 # in unit of liter
 
                     if self.props.get("sensorType", "Liquid Level") == "Voltage":
                         self.value = self.value

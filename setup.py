@@ -1,6 +1,6 @@
 from setuptools import setup
 
-setup(name='cbpi4-analog-sensor',
+setup(name='cbpi4-4-20ma-analog-sensor',
       version='0.0.1',
       description='CraftBeerPi4 Plugin for ADS1256 based analog sensor',
       author='littlem',
