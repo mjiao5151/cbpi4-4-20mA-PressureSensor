@@ -86,7 +86,7 @@ class ads1256_Config(CBPiExtension):
         
         while True:
             try:
-                self.ads.WaitDRDY()
+                # self.ads.WaitDRDY()  this command gives error.
                 measurement = self.ads.read_sequence(CH_SEQUENCE) 
                 volts = [i * self.ads.v_per_digit for i in measurement]
                 # read data and covert to voltage data
