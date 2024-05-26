@@ -86,6 +86,7 @@ class ads1256_Config(CBPiExtension):
         
         while True:
             try:
+                self.ads.WaitDRDY()
                 measurement = self.ads.read_sequence(CH_SEQUENCE) 
                 volts = [i * self.ads.v_per_digit for i in measurement]
                 # read data and covert to voltage data
@@ -101,7 +102,7 @@ class ads1256_Config(CBPiExtension):
                             'ch5': ch5,
                             'ch6': ch6,
                             'ch7': ch7}
-                    self.ads.cal_self()
+                    # self.ads.cal_self()
                 await asyncio.sleep(self.Interval)
             except Exception as e:
                 print('error!!!', self.Interval)
