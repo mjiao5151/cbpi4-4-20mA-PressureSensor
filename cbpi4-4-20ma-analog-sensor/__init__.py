@@ -81,8 +81,8 @@ class ads1256_Config(CBPiExtension):
 
     async def ReadSensor(self):
         global cache
-        self.ads.drate = DRATE_100
-        self.ads.cal_self()
+        # self.ads.drate = DRATE_100
+        # self.ads.cal_self()
         
         while True:
             try:
