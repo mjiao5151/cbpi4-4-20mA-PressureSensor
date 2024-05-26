@@ -101,6 +101,7 @@ class ads1256_Config(CBPiExtension):
                             'ch5': ch5,
                             'ch6': ch6,
                             'ch7': ch7}
+                    self.ads.cal_self()
                 await asyncio.sleep(self.Interval)
             except Exception as e:
                 print('error!!!', self.Interval)
