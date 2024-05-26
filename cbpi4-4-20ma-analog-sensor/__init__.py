@@ -48,7 +48,7 @@ class ads1256_Config(CBPiExtension):
         ready = None
         while ready is None and retries:
             try:
-                self.ads.drate = DRATE_100
+                self.ads.drate = DRATE_10
                 self.ads.cal_self()
                 ready = self.ads.read_sequence(CH_SEQUENCE)
                 SCD30_Active=True
